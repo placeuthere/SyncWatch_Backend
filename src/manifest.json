@@ -1,0 +1,24 @@
+{
+  "manifest_version": 3,
+  "name": "异地同步看视频",
+  "version": "1.0.0",
+  "description": "监听页面视频状态，为异地同步播放做准备",
+  "permissions": ["storage", "scripting", "tabs"],
+  "host_permissions": [
+  "http://localhost:3000/*",
+  "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.js/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "background": {
+    "service_worker": "background.js"
+  }
+}

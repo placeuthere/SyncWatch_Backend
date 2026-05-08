@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -c /d/zola_project/SyncWatch/extension/background.js)",
+      "Bash(node -c /d/zola_project/SyncWatch/extension/content.js)",
+      "Bash(node -c /d/zola_project/SyncWatch/extension/popup.js)",
+      "Bash(python3 -m json.tool /d/zola_project/SyncWatch/extension/manifest.json)",
+      "Bash(node *)",
+      "PowerShell(Get-ChildItem \"D:\\\\zola_project\\\\SyncWatch\" -Recurse -Force | Where-Object {-not $_.PSIsContainer} | Select-Object FullName | Sort-Object FullName)",
+      "PowerShell(head *)",
+      "PowerShell(ls \"D:\\\\zola_project\\\\SyncWatch\" | select Name, @{Name=\"Type\";Expression={if\\($_.PSIsContainer\\){\"Dir\"}else{\"File\"}}} | Format-Table -AutoSize)",
+      "PowerShell(Move-Item *)",
+      "PowerShell(Copy-Item *)",
+      "Bash(npm list *)",
+      "Bash(curl -o socket.io.min.js \"https://cdn.socket.io/4.7.5/socket.io.min.js\")",
+      "Bash(git init *)",
+      "Bash(git add *)",
+      "Bash(git commit *)"
+    ]
+  }
+}

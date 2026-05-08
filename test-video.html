@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>SyncWatch 测试页面</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    video {
+      width: 100%;
+      background: #000;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>SyncWatch 视频同步测试</h1>
+  <p>用浏览器打开此文件，插件会检测到视频元素</p>
+
+  <video width="320" height="240" controls>
+    <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <h2>测试说明</h2>
+  <ol>
+    <li>在两个浏览器窗口中打开这个文件</li>
+    <li>分别在插件中加入同一个房间 ID</li>
+    <li>在一个窗口点击视频的「播放」或「暂停」</li>
+    <li>另一个窗口的视频应该会同步</li>
+  </ol>
+
+  <h2>调试信息</h2>
+  <p>打开开发者工具 (F12)，在 Console 中查看日志</p>
+  <p>应该看到：<code>[一起看] 间谍脚本已成功加载！</code></p>
+</body>
+</html>

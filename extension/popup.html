@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>一起看</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Text', 'Segoe UI', sans-serif;
+      width: 320px;
+      margin: 0;
+      padding: 20px;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      min-height: 200px;
+    }
+    .card {
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+    h1 {
+      font-size: 18px;
+      font-weight: 600;
+      margin: 0 0 16px 0;
+      letter-spacing: -0.02em;
+      color: #1d1d1f;
+    }
+    .input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid #d2d2d7;
+      background: #ffffff;
+      color: #1d1d1f;
+      font-size: 14px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .input::placeholder { color: #86868b; }
+    .input:focus {
+      outline: none;
+      border-color: #0071e3;
+      box-shadow: 0 0 0 3px rgba(0, 113, 227, 0.2);
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.15s;
+      border: none;
+    }
+    .btn:active { transform: scale(0.98); }
+    .btn-primary {
+      background: #0071e3;
+      color: #fff;
+    }
+    .btn-primary:hover { opacity: 0.9; }
+    .btn-ghost {
+      background: transparent;
+      color: #515154;
+      border: 1px solid #d2d2d7;
+    }
+    .btn-ghost:hover { background: #f5f5f7; }
+    .status-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid #e8e8ed;
+      font-size: 13px;
+      color: #86868b;
+    }
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #d2d2d7;
+      flex-shrink: 0;
+    }
+    .status-dot.active {
+      background: #34c759;
+      box-shadow: 0 0 0 2px rgba(52, 199, 89, 0.25);
+    }
+    .hidden { display: none !important; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>一起看</h1>
+    <input type="text" id="roomInput" class="input" placeholder="请输入房间号" autocomplete="off" />
+    <button type="button" id="joinBtn" class="btn btn-primary">加入房间</button>
+    <button type="button" id="leaveBtn" class="btn btn-ghost hidden">离开房间</button>
+    <button type="button" id="shareLinkBtn" class="btn btn-ghost" style="margin-top: 8px;">分享当前链接</button>
+    <div class="status-bar">
+      <span id="statusDot" class="status-dot"></span>
+      <span id="statusText">未连接</span>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
