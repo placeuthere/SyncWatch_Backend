@@ -192,6 +192,10 @@ socket.on('progress-heartbeat', (payload) => {
 - [x] progress heartbeat - 5秒心跳保持同步，自动修正>2s的进度漂移
 - [x] 缓冲状态同步 - waiting/playing事件转发
 - [x] URL分享邀请 - Toast通知、点击加入链接
+- [x] Edge浏览器兼容性 - Manifest V3在Edge上完全可用
+- [x] Git版本管理 - 初始化仓库并推送到GitHub
+- [x] Vercel部署 - 后端服务成功部署到Vercel（https://sync-watch-backend-zola-s-projects.vercel.app）
+- [x] 内测阶段 - 代码可直接分发给朋友内测，无需上线应用商店
 
 ### 🎯 为什么之前的版本不工作
 
@@ -249,3 +253,52 @@ function sendUserAction(eventType) {
 - background 每 5s 发送 `progress-heartbeat` 心跳
 - content.js 接收后检查本地播放进度 vs 远程进度
 - 差值 > 2s 时自动 seek 到远程进度（可能是对方暂停/缓冲导致的延迟）
+
+---
+
+## 最近修复与改进 (Session 2026-05-08 后期)
+
+### 问题排查与修复
+
+1. **content.js 文件污染**
+   - 问题：content.js 包含了两个版本的代码（新旧混合），导致脚本加载失败
+   - 解决：重写了一个干净、简洁的 content.js 版本，保留所有核心功能，去除冗余代码
+   - 结果：视频检测和同步恢复正常
+
+2. **socket.io.min.js 加载失败**
+   - 问题：CSP 限制导致 importScripts 无法加载本地文件
+   - 解决：从 CDN 下载正确版本（v4.7.5）到 extension 目录
+   - 结果：WebSocket 连接成功建立
+
+3. **服务器地址配置**
+   - 从 `http://localhost:3000` → `https://sync-watch-backend-zola-s-projects.vercel.app`
+   - 支持远程部署和内网测试两种模式
+
+### 部署流程
+
+**本地开发测试**：
+```bash
+npm start                    # 启动本地服务器
+# 在 chrome://extensions 加载 extension 文件夹
+```
+
+**远程部署（Vercel）**：
+1. 推送代码到 GitHub：https://github.com/placeuthere/SyncWatch_Backend
+2. 在 Vercel 中连接 GitHub 仓库，自动部署
+3. 修改 `extension/background.js` 中的 `SERVER_URL` 指向 Vercel 实例
+4. 打包 `extension/` 文件夹分发给朋友
+
+**朋友使用步骤**：
+1. 下载并解压 `extension.zip`
+2. 打开 Chrome/Edge，访问 `chrome://extensions/` 或 `edge://extensions/`
+3. 启用"开发者模式"，加载已解压的扩展
+4. 输入房间 ID，加入房间
+5. 打开同一个视频网站，实时同步播放
+
+### 兼容性测试结果
+
+- ✅ Chrome/Chromium - 完全支持
+- ✅ Microsoft Edge - 完全支持（Manifest V3 兼容）
+- ✅ 本地 HTML5 视频 - 正常
+- ✅ YouTube/B站等网站 - 支持标准 `<video>` 标签的网站
+- ⚠️ Vercel 部署 - 适合小规模内测（2-10 用户），大规模可考虑 Railway/Heroku
